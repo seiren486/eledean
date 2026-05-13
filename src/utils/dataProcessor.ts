@@ -83,7 +83,7 @@ export const processFiles = async (salesFile: File, advertiserFile: File): Promi
     const advertiserId = advInfo?.advertiserId || '미분류';
 
     const marketerInfo = MARKETER_MAPPING[marketerId];
-    const marketerName = marketerInfo?.marketerName || '미분류';
+    const marketerName = marketerInfo?.name || '미분류';
     const team = marketerInfo?.team || '미분류';
 
     processedList.push({

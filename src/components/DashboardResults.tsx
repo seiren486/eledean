@@ -17,7 +17,7 @@ const DashboardResults: React.FC<Props> = ({ data, onOpenUpload }) => {
   const totalRevenue = useMemo(() => data.reduce((acc, curr) => acc + curr.totalRevenue, 0), [data]);
   const totalSettled = useMemo(() => data.reduce((acc, curr) => acc + curr.settledRevenue, 0), [data]);
   
-  const targetRevenue = 120000000; // 목표 1억 2천
+  const targetRevenue = 12000000; // 목표 1200만
   const progressPercent = Math.min(100, (totalRevenue / targetRevenue) * 100);
 
   // 2. 팀 및 담당자별 집계
@@ -97,10 +97,10 @@ const DashboardResults: React.FC<Props> = ({ data, onOpenUpload }) => {
             <div className="flex justify-between items-end mb-2">
               <div>
                 <span className="text-4xl font-extrabold text-primary">{totalRevenue.toLocaleString()}</span>
-                <span className="text-lg font-bold text-on-surface ml-1">KRW</span>
+                <span className="text-lg font-bold text-on-surface ml-1">원</span>
               </div>
               <div className="text-right">
-                <span className="block text-secondary font-label-sm text-label-sm">목표 금액: {targetRevenue.toLocaleString()} KRW</span>
+                <span className="block text-secondary font-label-sm text-label-sm">목표 금액: {targetRevenue.toLocaleString()} 원</span>
                 <span className="font-bold text-primary">{progressPercent.toFixed(1)}% 달성</span>
               </div>
             </div>
@@ -109,7 +109,7 @@ const DashboardResults: React.FC<Props> = ({ data, onOpenUpload }) => {
               <div className="h-full bg-primary rounded-full" style={{ width: `${progressPercent}%` }}></div>
             </div>
             <div className="mt-2 text-right">
-              <span className="text-secondary font-label-sm text-label-sm">정산광고비: {totalSettled.toLocaleString()} KRW</span>
+              <span className="text-secondary font-label-sm text-label-sm">정산광고비: {totalSettled.toLocaleString()} 원</span>
             </div>
           </div>
         </div>
@@ -148,7 +148,7 @@ const DashboardResults: React.FC<Props> = ({ data, onOpenUpload }) => {
                       <td className="px-4 py-2 font-body-md text-body-md">{stat.team}</td>
                       <td className="px-4 py-2 font-body-md text-body-md">{stat.marketerName}</td>
                       <td className="px-4 py-2 font-body-md text-body-md text-right font-bold text-primary">
-                        {(stat.revenue / 10000).toLocaleString(undefined, { maximumFractionDigits: 0 })}만 KRW
+                        {(stat.revenue / 10000).toLocaleString(undefined, { maximumFractionDigits: 0 })}만 원
                       </td>
                     </tr>
                   ))}
@@ -189,7 +189,7 @@ const DashboardResults: React.FC<Props> = ({ data, onOpenUpload }) => {
                   <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#555f6d', fontSize: 12}} dy={10} />
                   <YAxis axisLine={false} tickLine={false} tick={{fill: '#555f6d', fontSize: 12}} tickFormatter={(val: number) => `${(val/10000).toFixed(0)}만`} />
                   <Tooltip 
-                    formatter={(value: any) => [`${Number(value).toLocaleString()} KRW`, '매출']}
+                    formatter={(value: any) => [`${Number(value).toLocaleString()} 원`, '매출']}
                     contentStyle={{ borderRadius: '8px', border: '1px solid #e1e3e4', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
                   />
                   <Line type="monotone" dataKey="value" stroke="#b70011" strokeWidth={3} dot={{r: 4, fill: '#b70011', strokeWidth: 0}} activeDot={{r: 6}} />
