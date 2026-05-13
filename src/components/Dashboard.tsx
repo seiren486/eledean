@@ -1,6 +1,5 @@
 import React, { useMemo, useState } from 'react';
 import type { ProcessedData } from '../utils/dataProcessor';
-import { TrendingUp, MoreVertical, Search } from 'lucide-react';
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
 
 interface Props {
@@ -86,7 +85,7 @@ const Dashboard: React.FC<Props> = ({ data, onOpenUpload }) => {
         </div>
         
         <div className="bg-white p-6 rounded-xl border border-outline-variant shadow-sm flex flex-col items-center justify-center text-center">
-          <TrendingUp className="text-4xl text-primary mb-2" size={36} />
+          <span className="material-symbols-outlined text-4xl text-primary mb-2" data-icon="trending_up" style={{ fontVariationSettings: "'FILL' 1" }}>trending_up</span>
           <span className="font-label-sm text-label-sm text-secondary">처리된 데이터 건수</span>
           <div className="font-headline-xl text-headline-xl text-primary mt-2">{data.length.toLocaleString()} 건</div>
         </div>
@@ -99,7 +98,7 @@ const Dashboard: React.FC<Props> = ({ data, onOpenUpload }) => {
           <div className="flex justify-between items-center mb-6">
             <h3 className="font-headline-md text-headline-md text-on-surface">팀 및 담당자별 매출 실적</h3>
             <button className="text-secondary hover:text-primary transition-colors">
-              <MoreVertical size={20} />
+              <span className="material-symbols-outlined" data-icon="more_vert">more_vert</span>
             </button>
           </div>
           <div className="overflow-hidden border border-outline-variant rounded-lg max-h-[300px] overflow-y-auto">
@@ -161,7 +160,7 @@ const Dashboard: React.FC<Props> = ({ data, onOpenUpload }) => {
         <div className="p-4 border-b border-outline-variant flex flex-col md:flex-row md:items-center justify-between gap-4">
           <h3 className="font-headline-md text-headline-md text-on-surface">상세 매출 내역</h3>
           <div className="flex items-center gap-2 bg-surface border border-outline-variant rounded-lg px-3 py-1.5 w-full md:w-80 focus-within:border-primary transition-colors">
-            <Search className="text-secondary text-lg" size={18} />
+            <span className="material-symbols-outlined text-secondary text-lg" data-icon="search">search</span>
             <input 
               className="bg-transparent border-none focus:ring-0 text-body-md w-full p-0 outline-none" 
               placeholder="광고주 ID 또는 담당자/팀 검색..." 
