@@ -22,6 +22,30 @@ const DashboardResults: React.FC<Props> = ({ data, onOpenUpload }) => {
   const targetRevenue = 12000000; // 목표 1200만
   const progressPercent = Math.min(100, (totalRevenue / targetRevenue) * 100);
 
+  // 일평균 매출 및 목표 달성 필요 증액분 계산
+  const dailyStats = useMemo(() => {
+    if (data.length === 0) return { currentAvg: 0, requiredAvg: 0, increase: 0, passedDays: 0, remainingDays: 0 };
+    
+    // 가장 최근 날짜를 기준으로 현재 월의 일수 계산
+    const dates = data.map(item => new Date(item.date).getTime());
+    const maxDate = new Date(Math.max(...dates.filter(d => !isNaN(d))));
+    
+    if (isNaN(maxDate.getTime())) return { currentAvg: 0, requiredAvg: 0, increase: 0, passedDays: 0, remainingDays: 0 };
+
+    const year = maxDate.getFullYear();
+    const month = maxDate.getMonth() + 1;
+    const passedDays = maxDate.getDate();
+    const totalDaysInMonth = new Date(year, month, 0).getDate();
+    const remainingDays = Math.max(1, totalDaysInMonth - passedDays);
+
+    const currentAvg = passedDays > 0 ? totalRevenue / passedDays : 0;
+    const remainingRevenue = Math.max(0, targetRevenue - totalRevenue);
+    const requiredAvg = remainingRevenue / remainingDays;
+    const increase = requiredAvg - currentAvg;
+
+    return { currentAvg, requiredAvg, increase, passedDays, remainingDays };
+  }, [data, totalRevenue, targetRevenue]);
+
   // 2. 팀 및 담당자별 집계
   const marketerStats = useMemo(() => {
     const stats: Record<string, { team: string; marketerName: string; revenue: number }> = {};
@@ -102,24 +126,25 @@ const DashboardResults: React.FC<Props> = ({ data, onOpenUpload }) => {
 
       {/* KPI Card Section */}
       <section className="grid grid-cols-1 md:grid-cols-3 gap-element-gap mb-8">
-        <div className="md:col-span-2 bg-white p-6 rounded-xl border border-outline-variant shadow-sm flex flex-col justify-between">
+        {/* 1. 총 누적 매출 현황 */}
+        <div className="bg-white p-6 rounded-xl border border-outline-variant shadow-sm flex flex-col justify-between">
           <div>
             <span className="font-label-sm text-label-sm text-secondary uppercase tracking-wider">Overall Performance</span>
             <h3 className="font-headline-lg text-headline-lg text-on-surface mt-1">총 누적 매출 현황</h3>
           </div>
           <div className="mt-6">
-            <div className="flex justify-between items-end mb-2">
-              <div>
-                <span className="text-4xl font-extrabold text-primary">{totalRevenue.toLocaleString()}</span>
+            <div className="flex flex-col mb-2">
+              <div className="flex items-baseline mb-1">
+                <span className="text-3xl font-extrabold text-primary">{totalRevenue.toLocaleString()}</span>
                 <span className="text-lg font-bold text-on-surface ml-1">원</span>
               </div>
-              <div className="text-right">
-                <span className="block text-secondary font-label-sm text-label-sm">목표 금액: {targetRevenue.toLocaleString()} 원</span>
-                <span className="font-bold text-primary">{progressPercent.toFixed(1)}% 달성</span>
+              <div className="flex justify-between items-center w-full mt-2">
+                <span className="block text-secondary font-label-sm text-label-sm">목표: {targetRevenue.toLocaleString()} 원</span>
+                <span className="font-bold text-primary text-sm">{progressPercent.toFixed(1)}% 달성</span>
               </div>
             </div>
             {/* Progress Bar */}
-            <div className="w-full h-4 bg-surface-container-high rounded-full overflow-hidden">
+            <div className="w-full h-4 bg-surface-container-high rounded-full overflow-hidden mt-1">
               <div className="h-full bg-primary rounded-full" style={{ width: `${progressPercent}%` }}></div>
             </div>
             <div className="mt-2 text-right">
@@ -127,7 +152,44 @@ const DashboardResults: React.FC<Props> = ({ data, onOpenUpload }) => {
             </div>
           </div>
         </div>
-        
+
+        {/* 2. 일평균 매출 및 필요 증액분 (신규) */}
+        <div className="bg-white p-6 rounded-xl border border-outline-variant shadow-sm flex flex-col justify-between">
+          <div>
+            <span className="font-label-sm text-label-sm text-secondary uppercase tracking-wider">Daily Average</span>
+            <h3 className="font-headline-lg text-headline-lg text-on-surface mt-1">일평균 매출 분석</h3>
+          </div>
+          <div className="mt-4 flex flex-col gap-4">
+            <div>
+              <span className="font-label-sm text-label-sm text-secondary">현재 일평균 매출 ({dailyStats.passedDays}일 기준)</span>
+              <div className="flex items-baseline mt-1">
+                <span className="text-2xl font-bold text-on-surface">{Math.round(dailyStats.currentAvg).toLocaleString()}</span>
+                <span className="font-body-md ml-1">원</span>
+              </div>
+            </div>
+            <div className="pt-4 border-t border-outline-variant">
+              <span className="font-label-sm text-label-sm text-secondary">목표 달성 필요 일평균 ({dailyStats.remainingDays}일 남음)</span>
+              <div className="flex flex-col mt-1">
+                <div className="flex items-baseline">
+                  <span className="text-xl font-bold text-primary">{Math.round(dailyStats.requiredAvg).toLocaleString()}</span>
+                  <span className="font-body-md ml-1">원</span>
+                </div>
+                {dailyStats.increase > 0 ? (
+                  <span className="text-xs text-error font-medium mt-1 flex items-center">
+                    <span className="material-symbols-outlined text-[14px] mr-1" data-icon="trending_up">trending_up</span>
+                    일평균 {Math.round(dailyStats.increase).toLocaleString()}원 증액 필요
+                  </span>
+                ) : (
+                  <span className="text-xs text-[#059669] font-medium mt-1 flex items-center">
+                    <span className="material-symbols-outlined text-[14px] mr-1" data-icon="check_circle">check_circle</span>
+                    현재 추세로 목표 달성 가능
+                  </span>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* 3. 처리된 데이터 건수 */}
         <div className="bg-white p-6 rounded-xl border border-outline-variant shadow-sm flex flex-col items-center justify-center text-center">
           <span className="material-symbols-outlined text-4xl text-primary mb-2" data-icon="trending_up" style={{ fontVariationSettings: "'FILL' 1" }}>trending_up</span>
           <span className="font-label-sm text-label-sm text-secondary">처리된 데이터 건수</span>
