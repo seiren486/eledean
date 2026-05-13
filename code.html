@@ -1,358 +1,188 @@
 <!DOCTYPE html>
 
-<html class="light" lang="ko"><head>
+<html lang="ko"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>11번가 전시입찰광고 매출현황</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "tertiary-fixed": "#dce3f0",
-                        "on-secondary-fixed-variant": "#3e4755",
-                        "on-surface-variant": "#5c403c",
-                        "outline-variant": "#e6bdb8",
-                        "on-tertiary-container": "#f5f7ff",
-                        "tertiary-container": "#6b727d",
-                        "surface-container-high": "#e7e8e9",
-                        "on-error": "#ffffff",
-                        "surface": "#f8f9fa",
-                        "surface-tint": "#bf0715",
-                        "error": "#ba1a1a",
-                        "secondary": "#555f6d",
-                        "on-secondary-container": "#596372",
-                        "primary-fixed": "#ffdad6",
-                        "surface-container-lowest": "#ffffff",
-                        "error-container": "#ffdad6",
-                        "on-secondary-fixed": "#121c28",
-                        "surface-container-highest": "#e1e3e4",
-                        "inverse-primary": "#ffb4ab",
-                        "surface-variant": "#e1e3e4",
-                        "surface-container-low": "#f3f4f5",
-                        "surface-bright": "#f8f9fa",
-                        "primary-container": "#dc2626",
-                        "primary": "#b70011",
-                        "on-tertiary-fixed-variant": "#404752",
-                        "outline": "#916f6b",
-                        "background": "#f8f9fa",
-                        "on-error-container": "#93000a",
-                        "tertiary": "#525a64",
-                        "primary-fixed-dim": "#ffb4ab",
-                        "tertiary-fixed-dim": "#c0c7d3",
-                        "on-tertiary-fixed": "#151c25",
-                        "on-primary": "#ffffff",
-                        "secondary-container": "#d6e0f1",
-                        "inverse-surface": "#2e3132",
-                        "on-primary-fixed-variant": "#93000b",
-                        "secondary-fixed-dim": "#bdc7d8",
-                        "on-primary-fixed": "#410002",
-                        "surface-dim": "#d9dadb",
-                        "on-surface": "#191c1d",
-                        "on-tertiary": "#ffffff",
-                        "secondary-fixed": "#d9e3f4",
-                        "on-background": "#191c1d",
-                        "on-primary-container": "#fff6f5",
-                        "on-secondary": "#ffffff",
-                        "surface-container": "#edeeef",
-                        "inverse-on-surface": "#f0f1f2"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.125rem",
-                        "lg": "0.25rem",
-                        "xl": "0.5rem",
-                        "full": "0.75rem"
-                    },
-                    "spacing": {
-                        "margin-desktop": "32px",
-                        "section-gap": "48px",
-                        "container-max": "1280px",
-                        "margin-mobile": "16px",
-                        "gutter": "24px",
-                        "element-gap": "16px"
-                    },
-                    "fontFamily": {
-                        "headline-xl": ["Inter"],
-                        "headline-xl-mobile": ["Inter"],
-                        "headline-md": ["Inter"],
-                        "body-md": ["Inter"],
-                        "headline-lg": ["Inter"],
-                        "body-lg": ["Inter"],
-                        "label-sm": ["Inter"]
-                    },
-                    "fontSize": {
-                        "headline-xl": ["36px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                        "headline-xl-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "700"}],
-                        "headline-md": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
-                        "body-md": ["14px", {"lineHeight": "1.6", "fontWeight": "400"}],
-                        "headline-lg": ["24px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "700"}],
-                        "body-lg": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
-                        "label-sm": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "500"}]
-                    }
-                },
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed": "#dce3f0",
+                    "on-secondary-fixed-variant": "#3e4755",
+                    "on-surface-variant": "#5c403c",
+                    "outline-variant": "#e6bdb8",
+                    "on-tertiary-container": "#f5f7ff",
+                    "tertiary-container": "#6b727d",
+                    "surface-container-high": "#e7e8e9",
+                    "on-error": "#ffffff",
+                    "surface": "#f8f9fa",
+                    "surface-tint": "#bf0715",
+                    "error": "#ba1a1a",
+                    "secondary": "#555f6d",
+                    "on-secondary-container": "#596372",
+                    "primary-fixed": "#ffdad6",
+                    "surface-container-lowest": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "on-secondary-fixed": "#121c28",
+                    "surface-container-highest": "#e1e3e4",
+                    "inverse-primary": "#ffb4ab",
+                    "surface-variant": "#e1e3e4",
+                    "surface-container-low": "#f3f4f5",
+                    "surface-bright": "#f8f9fa",
+                    "primary-container": "#dc2626",
+                    "primary": "#b70011",
+                    "on-tertiary-fixed-variant": "#404752",
+                    "outline": "#916f6b",
+                    "background": "#f8f9fa",
+                    "on-error-container": "#93000a",
+                    "tertiary": "#525a64",
+                    "primary-fixed-dim": "#ffb4ab",
+                    "tertiary-fixed-dim": "#c0c7d3",
+                    "on-tertiary-fixed": "#151c25",
+                    "on-primary": "#ffffff",
+                    "secondary-container": "#d6e0f1",
+                    "inverse-surface": "#2e3132",
+                    "on-primary-fixed-variant": "#93000b",
+                    "secondary-fixed-dim": "#bdc7d8",
+                    "on-primary-fixed": "#410002",
+                    "surface-dim": "#d9dadb",
+                    "on-surface": "#191c1d",
+                    "on-tertiary": "#ffffff",
+                    "secondary-fixed": "#d9e3f4",
+                    "on-background": "#191c1d",
+                    "on-primary-container": "#fff6f5",
+                    "on-secondary": "#ffffff",
+                    "surface-container": "#edeeef",
+                    "inverse-on-surface": "#f0f1f2"
             },
-        }
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "margin-desktop": "32px",
+                    "section-gap": "48px",
+                    "container-max": "1280px",
+                    "margin-mobile": "16px",
+                    "gutter": "24px",
+                    "element-gap": "16px"
+            },
+            "fontFamily": {
+                    "headline-xl": ["Inter"],
+                    "headline-xl-mobile": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-sm": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-xl": ["36px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-xl-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                    "headline-md": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "headline-lg": ["24px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-lg": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
     </script>
 <style>
-        body { font-family: 'Inter', sans-serif; }
+        body { font-family: 'Inter', sans-serif; background-color: #f8f9fa; }
         .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
-    </style>
-<style>
-        body {
-          min-height: max(884px, 100dvh);
-        }
+        body { min-height: max(884px, 100dvh); }
     </style>
 </head>
-<body class="bg-surface text-on-surface min-h-screen">
+<body class="bg-background text-on-background min-h-screen">
 <!-- TopAppBar -->
-<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-4 md:px-margin-desktop h-16 bg-surface dark:bg-inverse-surface border-b border-outline-variant dark:border-on-secondary-fixed-variant">
-<div class="flex items-center gap-4 flex-1 min-w-0">
-<span class="material-symbols-outlined text-primary dark:text-inverse-primary shrink-0" data-icon="analytics">analytics</span>
-<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-inverse-primary truncate whitespace-nowrap">11번가 전시입찰광고 매출현황</h1>
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-mobile md:px-margin-desktop h-16 bg-surface border-b border-outline-variant">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary" data-icon="analytics">analytics</span>
+<h1 class="font-headline-lg text-headline-lg text-on-surface whitespace-nowrap">11번가 전시입찰광고 매출현황</h1>
 </div>
-<div class="flex items-center gap-element-gap">
-<div class="hidden md:flex gap-6 items-center">
-<a class="text-primary dark:text-inverse-primary font-bold border-b-2 border-primary font-label-sm text-label-sm px-1" href="#">대시보드</a>
-<a class="text-secondary dark:text-secondary-fixed-dim font-label-sm text-label-sm hover:bg-surface-container-high transition-colors" href="#">매출 분석</a>
-<a class="text-secondary dark:text-secondary-fixed-dim font-label-sm text-label-sm hover:bg-surface-container-high transition-colors" href="#">캠페인 관리</a>
-</div>
-<!-- Removed Profile Image -->
+<div class="flex items-center gap-4">
+<!-- AD symbol/badge removed per request -->
 </div>
 </header>
-<!-- NavigationDrawer (Desktop) -->
-<aside class="hidden lg:flex flex-col fixed left-0 top-16 h-[calc(100vh-64px)] w-72 p-4 gap-element-gap z-40 bg-surface-container-low dark:bg-inverse-surface border-r border-outline-variant dark:border-on-secondary-fixed-variant">
-<div class="px-2 py-4">
-<h2 class="font-headline-lg text-headline-lg font-black text-primary dark:text-inverse-primary">광고 분석 시스템</h2>
+<!-- NavigationDrawer (Hidden on Mobile) -->
+<aside class="hidden lg:flex flex-col fixed left-0 top-16 h-[calc(100vh-64px)] w-72 p-4 gap-element-gap bg-surface-container-low border-r border-outline-variant">
+<div class="px-4 py-6">
+<h2 class="font-headline-md text-headline-md font-black text-primary">광고 분석 시스템</h2>
 </div>
-<nav class="flex flex-col gap-1">
-<a class="flex items-center gap-3 px-4 py-3 bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-xl font-bold scale-[0.98] transition-transform duration-150" href="#">
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-surface-container-high rounded-xl transition-colors" href="#">
 <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
-<span class="font-body-md text-body-md">대시보드</span>
+<span class="font-body-md">대시보드</span>
 </a>
-<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-secondary-fixed-dim hover:bg-surface-container-high rounded-xl transition-colors" href="#">
+<a class="flex items-center gap-3 p-3 bg-secondary-container text-on-secondary-container rounded-xl font-bold transition-transform scale-[0.98]" href="#">
 <span class="material-symbols-outlined" data-icon="query_stats">query_stats</span>
-<span class="font-body-md text-body-md">매출 분석</span>
+<span class="font-body-md">매출 분석</span>
 </a>
-<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-secondary-fixed-dim hover:bg-surface-container-high rounded-xl transition-colors" href="#">
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-surface-container-high rounded-xl transition-colors" href="#">
 <span class="material-symbols-outlined" data-icon="ads_click">ads_click</span>
-<span class="font-body-md text-body-md">캠페인 관리</span>
+<span class="font-body-md">캠페인 관리</span>
 </a>
-<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-secondary-fixed-dim hover:bg-surface-container-high rounded-xl transition-colors" href="#">
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-surface-container-high rounded-xl transition-colors" href="#">
 <span class="material-symbols-outlined" data-icon="settings">settings</span>
-<span class="font-body-md text-body-md">시스템 설정</span>
+<span class="font-body-md">시스템 설정</span>
 </a>
 </nav>
 </aside>
-<!-- Main Content Area -->
-<main class="pt-24 pb-20 lg:pb-8 lg:ml-72 px-4 md:px-margin-desktop max-w-container-max mx-auto">
-<!-- KPI Card Section -->
-<section class="grid grid-cols-1 md:grid-cols-3 gap-element-gap mb-8">
-<div class="md:col-span-2 bg-white p-6 rounded-xl border border-outline-variant shadow-sm flex flex-col justify-between">
-<div>
-<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">Overall Performance</span>
-<h3 class="font-headline-lg text-headline-lg text-on-surface mt-1">총 누적 매출 현황</h3>
+<!-- Main Content Canvas -->
+<main class="lg:ml-72 pt-16 min-h-screen flex flex-col items-center justify-center p-margin-mobile md:p-margin-desktop">
+<div class="w-full max-w-[800px] flex flex-col items-center gap-element-gap">
+<!-- Simplified Layout: Title and Upload Zone only -->
+<div class="text-center mb-4">
+<h2 class="font-headline-xl text-headline-xl text-on-surface">데이터 업로드</h2>
+<p class="font-body-lg text-secondary mt-2">매출 분석을 시작하기 위해 파일을 선택해주세요.</p>
 </div>
-<div class="mt-6">
-<div class="flex justify-between items-end mb-2">
-<div>
-<span class="text-4xl font-extrabold text-primary">9,600,000</span>
-<span class="text-lg font-bold text-on-surface ml-1">KRW</span>
+<!-- Upload Zone -->
+<div class="w-full bg-white rounded-xl border-2 border-dashed border-outline-variant p-12 md:p-24 flex flex-col items-center justify-center gap-6 hover:border-primary hover:bg-surface-container-low transition-all group cursor-pointer">
+<div class="w-24 h-24 rounded-full bg-surface-container-highest flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-5xl text-primary" data-icon="upload_file">upload_file</span>
 </div>
-<div class="text-right">
-<span class="block text-secondary font-label-sm text-label-sm">목표 금액: 12,000,000 KRW</span>
-<span class="font-bold text-primary">80% 달성</span>
+<div class="text-center">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-2">분석할 파일을 드래그하여 업로드하세요</h2>
+<p class="font-body-lg text-secondary">또는 내 컴퓨터에서 파일 찾기 (Excel, CSV 지원)</p>
 </div>
-</div>
-<!-- Progress Bar -->
-<div class="w-full h-4 bg-surface-container-high rounded-full overflow-hidden">
-<div class="h-full bg-primary rounded-full" style="width: 80%"></div>
+<div class="flex items-center gap-2 px-4 py-2 bg-surface-container rounded-full border border-outline-variant">
+<span class="material-symbols-outlined text-secondary text-sm" data-icon="description">description</span>
+<span class="font-label-sm text-secondary">최대 50MB까지 지원</span>
 </div>
 </div>
-</div>
-<div class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm flex flex-col items-center justify-center text-center">
-<span class="material-symbols-outlined text-4xl text-primary mb-2" data-icon="trending_up" data-weight="fill" style="font-variation-settings: 'FILL' 1;">trending_up</span>
-<span class="font-label-sm text-label-sm text-secondary">전일 대비 성장률</span>
-<div class="font-headline-xl text-headline-xl text-primary mt-2">+12.4%</div>
-<p class="font-body-md text-body-md text-secondary mt-1">지속적인 상승 추세 유지 중</p>
-</div>
-</section>
-<!-- Charts Grid -->
-<section class="grid grid-cols-1 xl:grid-cols-2 gap-element-gap mb-8">
-<!-- View 1: Revenue by Team & Marketer -->
-<div class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm">
-<div class="flex justify-between items-center mb-6">
-<h3 class="font-headline-md text-headline-md text-on-surface">팀 및 담당자별 매출 실적</h3>
-<button class="text-secondary hover:text-primary transition-colors">
-<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+<!-- Action Button -->
+<button class="mt-8 px-12 py-4 bg-primary text-on-primary font-headline-md rounded-xl hover:bg-primary-container shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 flex items-center gap-3">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span>Analyze Data</span>
 </button>
 </div>
-<div class="overflow-hidden border border-outline-variant rounded-lg">
-<table class="w-full text-left">
-<thead>
-<tr class="bg-surface-container-low border-b border-outline-variant">
-<th class="px-4 py-2 font-label-sm text-label-sm text-secondary">팀 (Team)</th>
-<th class="px-4 py-2 font-label-sm text-label-sm text-secondary">담당자 (Marketer)</th>
-<th class="px-4 py-2 font-label-sm text-label-sm text-secondary text-right">매출 실적 (Revenue)</th>
-</tr>
-</thead>
-<tbody class="divide-y divide-outline-variant">
-<tr class="hover:bg-surface-container-low transition-colors">
-<td class="px-4 py-2 font-body-md text-body-md">A팀</td>
-<td class="px-4 py-2 font-body-md text-body-md">김철수</td>
-<td class="px-4 py-2 font-body-md text-body-md text-right font-bold text-primary">1.2M KRW</td>
-</tr>
-<tr class="hover:bg-surface-container-low transition-colors">
-<td class="px-4 py-2 font-body-md text-body-md">A팀</td>
-<td class="px-4 py-2 font-body-md text-body-md">이영희</td>
-<td class="px-4 py-2 font-body-md text-body-md text-right font-bold text-primary">1.8M KRW</td>
-</tr>
-<tr class="hover:bg-surface-container-low transition-colors">
-<td class="px-4 py-2 font-body-md text-body-md">B팀</td>
-<td class="px-4 py-2 font-body-md text-body-md">박민수</td>
-<td class="px-4 py-2 font-body-md text-body-md text-right font-bold text-primary">0.9M KRW</td>
-</tr>
-<tr class="hover:bg-surface-container-low transition-colors">
-<td class="px-4 py-2 font-body-md text-body-md">B팀</td>
-<td class="px-4 py-2 font-body-md text-body-md">정미경</td>
-<td class="px-4 py-2 font-body-md text-body-md text-right font-bold text-primary">2.1M KRW</td>
-</tr>
-<tr class="hover:bg-surface-container-low transition-colors">
-<td class="px-4 py-2 font-body-md text-body-md">C팀</td>
-<td class="px-4 py-2 font-body-md text-body-md">최승우</td>
-<td class="px-4 py-2 font-body-md text-body-md text-right font-bold text-primary">1.4M KRW</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<!-- View 2: Daily Revenue Trend -->
-<div class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm">
-<div class="flex justify-between items-center mb-6">
-<h3 class="font-headline-md text-headline-md text-on-surface">일간 매출 추이</h3>
-<div class="flex bg-surface-container rounded-lg p-1">
-<button class="px-3 py-1 bg-white rounded shadow-sm font-label-sm text-label-sm">7일</button>
-<button class="px-3 py-1 font-label-sm text-label-sm text-secondary">30일</button>
-</div>
-</div>
-<!-- Mock Line Chart Visualization -->
-<div class="h-64 relative">
-<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 400 200">
-<path d="M0,180 L50,150 L100,165 L150,120 L200,130 L250,80 L300,95 L350,40 L400,60" fill="none" stroke="#b70011" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
-<circle cx="0" cy="180" fill="#b70011" r="4"></circle>
-<circle cx="50" cy="150" fill="#b70011" r="4"></circle>
-<circle cx="100" cy="165" fill="#b70011" r="4"></circle>
-<circle cx="150" cy="120" fill="#b70011" r="4"></circle>
-<circle cx="200" cy="130" fill="#b70011" r="4"></circle>
-<circle cx="250" cy="80" fill="#b70011" r="4"></circle>
-<circle cx="300" cy="95" fill="#b70011" r="4"></circle>
-<circle cx="350" cy="40" fill="#b70011" r="4"></circle>
-<circle cx="400" cy="60" fill="#b70011" r="4"></circle>
-<!-- Grid lines -->
-<line stroke="#edeeef" stroke-width="1" x1="0" x2="400" y1="200" y2="200"></line>
-<line stroke="#edeeef" stroke-width="1" x1="0" x2="400" y1="150" y2="150"></line>
-<line stroke="#edeeef" stroke-width="1" x1="0" x2="400" y1="100" y2="100"></line>
-<line stroke="#edeeef" stroke-width="1" x1="0" x2="400" y1="50" y2="50"></line>
-</svg>
-<div class="flex justify-between mt-4">
-<span class="font-label-sm text-label-sm text-secondary">05/01</span>
-<span class="font-label-sm text-label-sm text-secondary">05/03</span>
-<span class="font-label-sm text-label-sm text-secondary">05/05</span>
-<span class="font-label-sm text-label-sm text-secondary">05/07</span>
-<span class="font-label-sm text-label-sm text-secondary">05/09</span>
-</div>
-</div>
-</div>
-</section>
-<!-- View 3: Detailed Table -->
-<section class="bg-white rounded-xl border border-outline-variant shadow-sm overflow-hidden">
-<div class="p-4 border-b border-outline-variant flex flex-col md:flex-row md:items-center justify-between gap-4">
-<h3 class="font-headline-md text-headline-md text-on-surface">상세 매출 내역</h3>
-<div class="flex items-center gap-2 bg-surface border border-outline-variant rounded-lg px-3 py-1.5 w-full md:w-80">
-<span class="material-symbols-outlined text-secondary text-lg" data-icon="search">search</span>
-<input class="bg-transparent border-none focus:ring-0 text-body-md w-full p-0" placeholder="광고주 ID 또는 담당자 검색..." type="text"/>
-</div>
-</div>
-<div class="overflow-x-auto">
-<table class="w-full text-left">
-<thead>
-<tr class="bg-surface-container-low border-b border-outline-variant">
-<th class="px-6 py-2.5 font-label-sm text-label-sm text-secondary">팀(Team)</th>
-<th class="px-6 py-2.5 font-label-sm text-label-sm text-secondary">담당자(Marketer)</th>
-<th class="px-6 py-2.5 font-label-sm text-label-sm text-secondary">광고주 ID(Advertiser ID)</th>
-<th class="px-6 py-2.5 font-label-sm text-label-sm text-secondary">날짜(Date)</th>
-<th class="px-6 py-2.5 font-label-sm text-label-sm text-secondary text-right">매출(Revenue)</th>
-</tr>
-</thead>
-<tbody class="divide-y divide-outline-variant">
-<tr class="hover:bg-surface-container-low transition-colors">
-<td class="px-6 py-2 font-body-md text-body-md">A팀</td>
-<td class="px-6 py-2 font-body-md text-body-md">이영희</td>
-<td class="px-6 py-2 font-body-md text-body-md font-mono">adv_korea_01</td>
-<td class="px-6 py-2 font-body-md text-body-md text-secondary">2023-05-09</td>
-<td class="px-6 py-2 font-body-md text-body-md text-right font-bold">450,000 KRW</td>
-</tr>
-<tr class="hover:bg-surface-container-low transition-colors">
-<td class="px-6 py-2 font-body-md text-body-md">B팀</td>
-<td class="px-6 py-2 font-body-md text-body-md">정미경</td>
-<td class="px-6 py-2 font-body-md text-body-md font-mono">global_tech_22</td>
-<td class="px-6 py-2 font-body-md text-body-md text-secondary">2023-05-09</td>
-<td class="px-6 py-2 font-body-md text-body-md text-right font-bold">820,000 KRW</td>
-</tr>
-<tr class="hover:bg-surface-container-low transition-colors">
-<td class="px-6 py-2 font-body-md text-body-md">C팀</td>
-<td class="px-6 py-2 font-body-md text-body-md">최승우</td>
-<td class="px-6 py-2 font-body-md text-body-md font-mono">fashion_mall_7</td>
-<td class="px-6 py-2 font-body-md text-body-md text-secondary">2023-05-08</td>
-<td class="px-6 py-2 font-body-md text-body-md text-right font-bold">310,000 KRW</td>
-</tr>
-<tr class="hover:bg-surface-container-low transition-colors">
-<td class="px-6 py-2 font-body-md text-body-md">A팀</td>
-<td class="px-6 py-2 font-body-md text-body-md">김철수</td>
-<td class="px-6 py-2 font-body-md text-body-md font-mono">home_app_99</td>
-<td class="px-6 py-2 font-body-md text-body-md text-secondary">2023-05-08</td>
-<td class="px-6 py-2 font-body-md text-body-md text-right font-bold">150,000 KRW</td>
-</tr>
-</tbody>
-</table>
-</div>
-<!-- Pagination -->
-<div class="px-6 py-3 bg-surface-container-low flex items-center justify-between">
-<span class="font-label-sm text-label-sm text-secondary">Showing 1-4 of 124 results</span>
-<div class="flex gap-2">
-<button class="p-1.5 border border-outline-variant rounded hover:bg-white transition-colors">
-<span class="material-symbols-outlined text-sm" data-icon="chevron_left">chevron_left</span>
-</button>
-<button class="px-2.5 py-0.5 bg-primary text-white rounded font-label-sm text-label-sm">1</button>
-<button class="px-2.5 py-0.5 border border-outline-variant rounded hover:bg-white font-label-sm text-label-sm">2</button>
-<button class="px-2.5 py-0.5 border border-outline-variant rounded hover:bg-white font-label-sm text-label-sm">3</button>
-<button class="p-1.5 border border-outline-variant rounded hover:bg-white transition-colors">
-<span class="material-symbols-outlined text-sm" data-icon="chevron_right">chevron_right</span>
-</button>
-</div>
-</div>
-</section>
 </main>
-<!-- BottomNavBar (Mobile) -->
-<footer class="lg:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-16 px-4 bg-surface dark:bg-inverse-surface border-t border-outline-variant dark:border-on-secondary-fixed-variant bg-surface/80 backdrop-blur-md shadow-lg rounded-t-xl">
-<a class="flex flex-col items-center justify-center text-primary dark:text-inverse-primary font-bold scale-95 transition-all" href="#">
+<!-- BottomNavBar (Visible on Mobile) -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-16 px-4 bg-surface/80 backdrop-blur-md border-t border-outline-variant shadow-lg">
+<a class="flex flex-col items-center justify-center text-secondary" href="#">
 <span class="material-symbols-outlined" data-icon="home">home</span>
-<span class="font-label-sm text-label-sm">홈</span>
+<span class="font-label-sm">홈</span>
 </a>
-<a class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container transition-colors" href="#">
+<a class="flex flex-col items-center justify-center text-primary font-bold scale-95" href="#">
 <span class="material-symbols-outlined" data-icon="bar_chart">bar_chart</span>
-<span class="font-label-sm text-label-sm">분석</span>
+<span class="font-label-sm">분석</span>
 </a>
-<a class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container transition-colors" href="#">
+<a class="flex flex-col items-center justify-center text-secondary" href="#">
 <span class="material-symbols-outlined" data-icon="list_alt">list_alt</span>
-<span class="font-label-sm text-label-sm">관리</span>
+<span class="font-label-sm">관리</span>
 </a>
-<a class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container transition-colors" href="#">
+<a class="flex flex-col items-center justify-center text-secondary" href="#">
 <span class="material-symbols-outlined" data-icon="settings">settings</span>
-<span class="font-label-sm text-label-sm">설정</span>
+<span class="font-label-sm">설정</span>
 </a>
-</footer>
+</nav>
 </body></html>

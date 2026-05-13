@@ -2,27 +2,26 @@ import { useState } from 'react';
 import type { ProcessedData } from './utils/dataProcessor';
 import Dashboard from './components/Dashboard';
 import Layout from './components/Layout';
-import FileUploadModal from './components/FileUploadModal';
+import UploadScreen from './components/UploadScreen';
 
 function App() {
   const [data, setData] = useState<ProcessedData[]>([]);
-  const [isUploadModalOpen, setIsUploadModalOpen] = useState(true);
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
 
   const handleDataProcessed = (processedData: ProcessedData[]) => {
     setData(processedData);
-    setIsUploadModalOpen(false);
+    setIsDataLoaded(true);
   };
 
   return (
     <Layout>
-      {isUploadModalOpen && (
-        <FileUploadModal 
-          onProcess={handleDataProcessed} 
-          onClose={() => setIsUploadModalOpen(false)} 
-        />
+      {!isDataLoaded ? (
+        <div className="flex flex-col items-center justify-center min-h-[calc(100vh-120px)]">
+          <UploadScreen onProcess={handleDataProcessed} />
+        </div>
+      ) : (
+        <Dashboard data={data} onOpenUpload={() => setIsDataLoaded(false)} />
       )}
-      
-      <Dashboard data={data} onOpenUpload={() => setIsUploadModalOpen(true)} />
     </Layout>
   );
 }
