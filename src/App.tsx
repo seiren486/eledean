@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { ProcessedData } from './utils/dataProcessor';
-import Dashboard from './components/Dashboard';
+import DashboardResults from './components/DashboardResults';
 import Layout from './components/Layout';
 import UploadScreen from './components/UploadScreen';
 
@@ -20,7 +20,7 @@ function App() {
           <UploadScreen onProcess={handleDataProcessed} />
         </div>
       ) : (
-        <Dashboard data={data} onOpenUpload={() => setIsDataLoaded(false)} />
+        <DashboardResults data={data} onOpenUpload={() => setIsDataLoaded(false)} />
       )}
     </Layout>
   );
