@@ -9,9 +9,11 @@ interface Props {
 
 const DashboardResults: React.FC<Props> = ({ data, onOpenUpload }) => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [filterTeam, setFilterTeam] = useState<string>('all');
+  const [filterMarketer, setFilterMarketer] = useState<string>('all');
   const [dateRange, setDateRange] = useState<'7' | '30'>('7');
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
+  const itemsPerPage = 31;
 
   // 1. KPI 집계
   const totalRevenue = useMemo(() => data.reduce((acc, curr) => acc + curr.totalRevenue, 0), [data]);
@@ -54,13 +56,25 @@ const DashboardResults: React.FC<Props> = ({ data, onOpenUpload }) => {
   }, [data, dateRange]);
 
   // 4. 상세 매출 내역 필터링 및 페이징
+  const uniqueTeams = useMemo(() => Array.from(new Set(data.map(item => item.team))).sort(), [data]);
+  const uniqueMarketers = useMemo(() => {
+    let marketers = data;
+    if (filterTeam !== 'all') {
+      marketers = marketers.filter(item => item.team === filterTeam);
+    }
+    return Array.from(new Set(marketers.map(item => item.marketerName))).sort();
+  }, [data, filterTeam]);
+
   const filteredData = useMemo(() => {
-    return data.filter(item => 
-      item.advertiserId.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.marketerName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.team.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-  }, [data, searchTerm]);
+    return data.filter(item => {
+      const matchSearch = item.advertiserId.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                          item.marketerName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                          item.team.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchTeam = filterTeam === 'all' || item.team === filterTeam;
+      const matchMarketer = filterMarketer === 'all' || item.marketerName === filterMarketer;
+      return matchSearch && matchTeam && matchMarketer;
+    });
+  }, [data, searchTerm, filterTeam, filterMarketer]);
 
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
   const currentData = useMemo(() => {
@@ -148,7 +162,7 @@ const DashboardResults: React.FC<Props> = ({ data, onOpenUpload }) => {
                       <td className="px-4 py-2 font-body-md text-body-md">{stat.team}</td>
                       <td className="px-4 py-2 font-body-md text-body-md">{stat.marketerName}</td>
                       <td className="px-4 py-2 font-body-md text-body-md text-right font-bold text-primary">
-                        {(stat.revenue / 10000).toLocaleString(undefined, { maximumFractionDigits: 0 })}만 원
+                        {stat.revenue.toLocaleString()} 원
                       </td>
                     </tr>
                   ))}
@@ -208,18 +222,45 @@ const DashboardResults: React.FC<Props> = ({ data, onOpenUpload }) => {
       <section className="bg-white rounded-xl border border-outline-variant shadow-sm overflow-hidden mb-8">
         <div className="p-4 border-b border-outline-variant flex flex-col md:flex-row md:items-center justify-between gap-4">
           <h3 className="font-headline-md text-headline-md text-on-surface">상세 매출 내역</h3>
-          <div className="flex items-center gap-2 bg-surface border border-outline-variant rounded-lg px-3 py-1.5 w-full md:w-80">
-            <span className="material-symbols-outlined text-secondary text-lg" data-icon="search">search</span>
-            <input 
-              className="bg-transparent border-none focus:ring-0 text-body-md w-full p-0 outline-none" 
-              placeholder="광고주 ID 또는 담당자 검색..." 
-              type="text"
-              value={searchTerm}
+          <div className="flex flex-col md:flex-row items-center gap-2">
+            <select 
+              className="bg-surface border border-outline-variant rounded-lg px-3 py-1.5 text-body-md text-on-surface w-full md:w-32 outline-none focus:border-primary transition-colors"
+              value={filterTeam}
               onChange={e => {
-                setSearchTerm(e.target.value);
-                setCurrentPage(1); // 검색 시 첫 페이지로
+                setFilterTeam(e.target.value);
+                setFilterMarketer('all');
+                setCurrentPage(1);
               }}
-            />
+            >
+              <option value="all">전체 팀</option>
+              {uniqueTeams.map(team => <option key={team} value={team}>{team}</option>)}
+            </select>
+            
+            <select 
+              className="bg-surface border border-outline-variant rounded-lg px-3 py-1.5 text-body-md text-on-surface w-full md:w-32 outline-none focus:border-primary transition-colors"
+              value={filterMarketer}
+              onChange={e => {
+                setFilterMarketer(e.target.value);
+                setCurrentPage(1);
+              }}
+            >
+              <option value="all">전체 담당자</option>
+              {uniqueMarketers.map(marketer => <option key={marketer} value={marketer}>{marketer}</option>)}
+            </select>
+
+            <div className="flex items-center gap-2 bg-surface border border-outline-variant rounded-lg px-3 py-1.5 w-full md:w-64 focus-within:border-primary transition-colors">
+              <span className="material-symbols-outlined text-secondary text-lg" data-icon="search">search</span>
+              <input 
+                className="bg-transparent border-none focus:ring-0 text-body-md w-full p-0 outline-none" 
+                placeholder="검색..." 
+                type="text"
+                value={searchTerm}
+                onChange={e => {
+                  setSearchTerm(e.target.value);
+                  setCurrentPage(1);
+                }}
+              />
+            </div>
           </div>
         </div>
         <div className="overflow-x-auto">
@@ -230,8 +271,8 @@ const DashboardResults: React.FC<Props> = ({ data, onOpenUpload }) => {
                 <th className="px-6 py-2.5 font-label-sm text-label-sm text-secondary">팀(Team)</th>
                 <th className="px-6 py-2.5 font-label-sm text-label-sm text-secondary">담당자(Marketer)</th>
                 <th className="px-6 py-2.5 font-label-sm text-label-sm text-secondary">광고주 ID(Advertiser)</th>
-                <th className="px-6 py-2.5 font-label-sm text-label-sm text-secondary text-right">전체매출(Rev)</th>
-                <th className="px-6 py-2.5 font-label-sm text-label-sm text-secondary text-right">정산매출(Set)</th>
+                <th className="px-6 py-2.5 font-label-sm text-label-sm text-secondary text-right">전체매출</th>
+                <th className="px-6 py-2.5 font-label-sm text-label-sm text-secondary text-right">정산매출</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-outline-variant">
