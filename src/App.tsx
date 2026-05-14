@@ -14,7 +14,7 @@ function App() {
   };
 
   return (
-    <Layout>
+    <Layout showDownload={isDataLoaded}>
       {!isDataLoaded ? (
         <div className="flex flex-col items-center justify-center min-h-[calc(100vh-120px)]">
           <UploadScreen onProcess={handleDataProcessed} />

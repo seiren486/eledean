@@ -118,7 +118,7 @@ const DashboardResults: React.FC<Props> = ({ data, onOpenUpload }) => {
       <div className="flex justify-end mb-4">
         <button 
           onClick={onOpenUpload}
-          className="px-4 py-2 bg-secondary-container text-on-secondary-container rounded-lg font-label-sm font-bold hover:bg-secondary hover:text-on-secondary transition-colors"
+          className="px-4 py-2 bg-secondary-container text-on-secondary-container rounded-lg font-label-sm font-bold hover:bg-secondary hover:text-on-secondary transition-colors download-exclude"
         >
           데이터 재업로드
         </button>
