@@ -56,7 +56,7 @@ const Layout: React.FC<LayoutProps> = ({ children, showDownload }) => {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `광고분석보고서_${new Date().toISOString().slice(0, 10)}.html`;
+    a.download = `${new Date().toISOString().slice(0, 10)}.html`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
