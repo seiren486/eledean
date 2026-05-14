@@ -7,48 +7,52 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children, showDownload }) => {
   const handleDownload = () => {
-    // 1. 문서 복제
+    // 1. 현재 문서 복제
     const htmlClone = document.documentElement.cloneNode(true) as HTMLElement;
     
-    // 2. 스크립트 제거 (정적인 페이지로 만듦)
-    const scripts = htmlClone.querySelectorAll('script');
-    scripts.forEach(s => s.remove());
+    // 2. 스크립트 제거 (정적인 상태로 고정)
+    htmlClone.querySelectorAll('script').forEach(s => s.remove());
     
-    // 3. UI 요소 중 다운로드 버전에서 제외할 것들 제거 (버튼 등)
-    const elementsToRemove = htmlClone.querySelectorAll('#download-button, .download-exclude');
-    elementsToRemove.forEach(el => el.remove());
+    // 3. UI 요소 중 불필요한 것들 제거 (다운로드 버튼, 데이터 재업로드 버튼 등)
+    htmlClone.querySelectorAll('#download-button, .download-exclude').forEach(el => el.remove());
 
-    // 4. 스타일 수집 및 삽입
-    // 개발 모드와 빌드 모드 모두 대응하기 위해 현재 문서의 모든 스타일을 가져옴
+    // 4. 스타일 캡처 (모든 CSS 규칙 수집)
     let combinedStyles = '';
-    document.querySelectorAll('style, link[rel="stylesheet"]').forEach(style => {
-      if (style.tagName === 'STYLE') {
-        combinedStyles += style.innerHTML + '\n';
-      } else if (style.tagName === 'LINK') {
-        // External stylesheets might have CORS issues if we try to fetch them,
-        // but for local development/production they are usually on the same origin.
-        // For simplicity, we'll keep the link tag if it's external, or try to inline it.
-        // Actually, for a standalone file, inlining is best.
+    const head = htmlClone.querySelector('head') || htmlClone.appendChild(document.createElement('head'));
+    
+    // 기존 head 내부의 스타일/링크 정리 (중복 방지)
+    head.querySelectorAll('style, link[rel="stylesheet"]').forEach(el => el.remove());
+
+    for (const sheet of Array.from(document.styleSheets)) {
+      try {
+        const rules = Array.from(sheet.cssRules);
+        for (const rule of rules) {
+          combinedStyles += rule.cssText + '\n';
+        }
+      } catch (e) {
+        // CORS 제한으로 읽을 수 없는 외부 스타일시트의 경우 link 태그로 복제
+        if (sheet.href) {
+          const link = document.createElement('link');
+          link.rel = 'stylesheet';
+          link.href = sheet.href;
+          head.appendChild(link);
+        }
       }
-    });
-
-    const head = htmlClone.querySelector('head');
-    if (head) {
-      // 폰트 및 아이콘 링크 유지
-      const googleFonts = document.querySelectorAll('link[href*="fonts.googleapis.com"], link[href*="fonts.gstatic.com"]');
-      googleFonts.forEach(font => head.appendChild(font.cloneNode(true)));
-      
-      const materialIcons = document.querySelectorAll('link[href*="material-symbols-outlined"]');
-      materialIcons.forEach(icon => head.appendChild(icon.cloneNode(true)));
-
-      // 수집된 스타일 삽입
-      const styleTag = document.createElement('style');
-      styleTag.innerHTML = combinedStyles;
-      head.appendChild(styleTag);
     }
 
+    // 수집된 모든 스타일을 하나의 style 태그로 삽입
+    const styleTag = document.createElement('style');
+    styleTag.innerHTML = combinedStyles;
+    head.appendChild(styleTag);
+
+    // 폰트 및 아이콘 관련 링크 명시적 보존
+    document.querySelectorAll('link[href*="fonts.googleapis.com"], link[href*="fonts.gstatic.com"], link[href*="material-symbols-outlined"]').forEach(link => {
+      head.appendChild(link.cloneNode(true));
+    });
+
     // 5. HTML 파일 생성 및 다운로드
-    const blob = new Blob([htmlClone.outerHTML], { type: 'text/html' });
+    // DOCTYPE 명시 및 전체 HTML 문자열 생성
+    const blob = new Blob(['<!DOCTYPE html>\n' + htmlClone.outerHTML], { type: 'text/html' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
